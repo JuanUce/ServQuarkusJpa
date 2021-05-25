@@ -1,2 +1,2 @@
 # ServQuarkusJpa
-Servidor micro servicios Quarkus utiización de JPA
+Servidor micro servicios Quarkus utilización de JPA
