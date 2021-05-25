@@ -1,0 +1,46 @@
+plugins {
+
+    id 'java-library'
+     //plugin para trabajar con el framework
+    id 'io.quarkus' version '1.12.0.Final'
+}
+
+repositories {
+    // Use jcenter for resolving dependencies.
+    // You can declare any Maven/Ivy/file repository here.
+    jcenter()
+}
+ext{
+quarkusversion = '1.12.0.Final'
+}
+
+
+dependencies {
+//----------------------FRAMEWORK QUARKUS-------------
+implementation enforcedPlatform("io.quarkus:quarkus-universe-bom:${quarkusversion}")
+compile group: 'io.quarkus', name: 'quarkus-resteasy'
+//---------------------JPA-IMPL HIBERNET-----------------
+implementation group: 'io.quarkus', name: 'quarkus-hibernate-orm', version: '1.12.2.Final'    
+    compile group: 'io.quarkus', name: 'quarkus-jdbc-postgresql', version: '1.6.1.Final'
+    compile group: 'io.quarkus', name: 'quarkus-resteasy-jsonb', version: '1.6.1.Final'
+	implementation group: 'io.quarkus', name: 'quarkus-resteasy-jackson', version: '1.12.2.Final'
+	compile group: 'io.quarkus', name: 'quarkus-agroal', version: '1.6.1.Final'
+//----------------------------CONSUL------------------
+compile "com.ecwid.consul:consul-api:1.4.5"
+
+//----------------------------HEALTH-------------------
+implementation group: 'io.quarkus', name: 'quarkus-smallrye-health', version: '1.12.2.Final'
+
+//-----------------------CONEXION MICROSERVICIOS----------------
+implementation group: 'io.quarkus', name: 'quarkus-rest-client', version: '1.12.2.Final'
+implementation group: 'io.quarkus', name: 'quarkus-rest-client-jackson', version: '1.12.2.Final'
+
+//-----------------------OPENTRACING----------------------------
+ implementation group: 'io.quarkus', name: 'quarkus-smallrye-opentracing'
+//-----------------------OPENTRACING JDBC
+implementation group: 'io.opentracing.contrib', name: 'opentracing-jdbc', version: '0.2.15'
+}
+
+task stage(dependsOn: ['quarkusBuild', 'clean'])
+build.mustRunAfter clean
+
